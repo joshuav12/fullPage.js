@@ -1273,8 +1273,8 @@
             // using CSS3 translate functionality
             if (options.css3 && options.autoScrolling && !options.scrollBar) {
 
-                var translate3d = 'translate3d(0px, -' + v.dtop + 'px, 0px)';
-                transformContainer(translate3d, true);
+                var translate = 'translate(0px, -' + v.dtop + 'px)';
+                transformContainer(translate, true);
 
                 //even when the scrollingSpeed is 0 there's a little delay, which might cause the
                 //scrollingSpeed to change in case of using silentMoveTo();
@@ -1721,9 +1721,9 @@
             };
 
             if(options.css3){
-                var translate3d = 'translate3d(-' + Math.round(destinyPos.left) + 'px, 0px, 0px)';
+                var translate = 'translate(-' + Math.round(destinyPos.left) + 'px, 0px)';
 
-                addAnimation(slides.find(SLIDES_CONTAINER_SEL), options.scrollingSpeed>0).css(getTransforms(translate3d));
+                addAnimation(slides.find(SLIDES_CONTAINER_SEL), options.scrollingSpeed>0).css(getTransforms(translate));
 
                 afterSlideLoadsId = setTimeout(function(){
                     afterSlideLoads();
@@ -1990,14 +1990,14 @@
         /**
         * Adds a css3 transform property to the container class with or without animation depending on the animated param.
         */
-        function transformContainer(translate3d, animated){
+        function transformContainer(translate, animated){
             if(animated){
                 addAnimation(container);
             }else{
                 removeAnimation(container);
             }
 
-            container.css(getTransforms(translate3d));
+            container.css(getTransforms(translate));
 
             //syncronously removing the class after the animation has been applied.
             setTimeout(function(){
@@ -2214,7 +2214,7 @@
 
             for (var t in transforms) {
                 if (el.style[t] !== undefined) {
-                    el.style[t] = 'translate3d(1px,1px,1px)';
+                    el.style[t] = 'translate(1px,1px)';
                     has3d = window.getComputedStyle(el).getPropertyValue(transforms[t]);
                 }
             }
@@ -2345,8 +2345,8 @@
                 container.scrollTop(top);
             }
             else if (options.css3) {
-                var translate3d = 'translate3d(0px, -' + top + 'px, 0px)';
-                transformContainer(translate3d, false);
+                var translate = 'translate(0px, -' + top + 'px)';
+                transformContainer(translate, false);
             }
             else {
                 container.css('top', -top);
@@ -2356,12 +2356,12 @@
         /**
         * Returns the cross-browser transform string.
         */
-        function getTransforms(translate3d){
+        function getTransforms(translate){
             return {
-                '-webkit-transform': translate3d,
-                '-moz-transform': translate3d,
-                '-ms-transform':translate3d,
-                'transform': translate3d
+                '-webkit-transform': translate,
+                '-moz-transform': translate,
+                '-ms-transform':translate,
+                'transform': translate
             };
         }
 
